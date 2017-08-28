@@ -17,10 +17,16 @@
 - debug:
     msg: "Buildbot version is {{ buildbot.stdout }} XXX"
 
-- name: here
-  group: name=buildbot state=present system=yes
+- group: name=buildbot state=present system=yes
 
 - user: name=buildbot group=buildbot shell=/bin/bash 
 
+- command: buildbot create-master ~/master
+  sudo: yes
+  sudo_user: buildbot
 
-
+- name: here
+  copy:
+    remote_src: yes
+    src: /home/buildbot/master/master.cfg.sample
+    dest: /home/buildbot/master/master.cfg
