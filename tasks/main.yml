@@ -25,8 +25,25 @@
   sudo: yes
   sudo_user: buildbot
 
-- name: here
+- name: start buildbot
   copy:
     remote_src: yes
     src: /home/buildbot/master/master.cfg.sample
     dest: /home/buildbot/master/master.cfg
+    owner: buildbot
+
+- lineinfile:
+    dest: /home/buildbot/master/master.cfg
+    state: present
+    regexp: "^c\\[\\'buildbotURL\\'\\] = \"http://localhost:8010/\""
+    line: "c['buildbotURL'] = \"http://{{ ansible_ssh_host }}:8011/\""
+
+- lineinfile:
+    dest: /home/buildbot/master/master.cfg
+    state: present
+    regexp: "^c\\[\\'www\\'\\] = dict\\(port=8010,"
+    line: "c['www'] = dict(port=8011,"
+  notify:
+    - start buildbot
+
+

@@ -1,2 +1,8 @@
 ---
 # handlers file for buildbot
+- name: start buildbot
+  command: buildbot start /home/buildbot/master
+  sudo: yes
+  sudo_user: buildbot
+
+
