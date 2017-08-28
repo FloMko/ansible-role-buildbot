@@ -1,2 +1,26 @@
 ---
 # tasks file for buildbot
+- apt: name=python3-pip state=present
+
+- pip:
+    name: "{{ item }}"
+    executable: pip3
+  with_items:
+    - buildbot[bundle]
+    - buildbot-grid-view
+
+- name: verify Buildbot installation 
+  shell: |
+    buildbot --version
+  register: buildbot
+  
+- debug:
+    msg: "Buildbot version is {{ buildbot.stdout }} XXX"
+
+- name: here
+  group: name=buildbot state=present system=yes
+
+- user: name=buildbot group=buildbot shell=/bin/bash 
+
+
+
