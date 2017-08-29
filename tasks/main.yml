@@ -37,13 +37,19 @@
     dest: /home/buildbot/master/master.cfg
     state: present
     regexp: "^c\\[\\'buildbotURL\\'\\] = \"http://localhost:8010/\""
-    line: "c['buildbotURL'] = \"http://{{ ansible_ssh_host }}:8011/\""
+    line: "c['buildbotURL'] = \"http://{{ ansible_ssh_host }}:8010/\""
 
 - lineinfile:
     dest: /home/buildbot/master/master.cfg
     state: present
     regexp: "^c\\[\\'www\\'\\] = dict\\(port=8010,"
     line: "c['www'] = dict(port=8011,"
+
+- lineinfile:
+    dest: /home/buildbot/master/master.cfg
+    state: present
+    regexp: "^c\\[\\'protocols\\'\\] = {\\'pb\\': {\\'port\\': 9989}}"
+    line: "c['protocols'] = {'pb': {'port': 'tcp:9989:interface=127.0.0.1'}}"
   notify:
     - start buildbot
 
