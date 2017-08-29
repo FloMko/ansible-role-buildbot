@@ -37,7 +37,7 @@
     dest: /home/buildbot/master/master.cfg
     state: present
     regexp: "^c\\[\\'buildbotURL\\'\\] = \"http://localhost:8010/\""
-    line: "c['buildbotURL'] = \"http://{{ ansible_ssh_host }}:8010/\""
+    line: "c['buildbotURL'] = \"http://{{ server_name }}:8010/\""
 
 - lineinfile:
     dest: /home/buildbot/master/master.cfg
