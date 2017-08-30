@@ -20,7 +20,7 @@
 
 - group: name=buildbot state=present system=yes
 
-- user: name=buildbot group=buildbot shell=/bin/bash 
+- user: name=buildbot group=buildbot shell=/bin/bash generate_ssh_key=yes
 
 - command: buildbot create-master ~/master
   sudo: yes
