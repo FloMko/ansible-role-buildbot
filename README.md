@@ -5,6 +5,8 @@ Installs Buildbot
 
 TODO create systemd files for Buildbot
 
+TODO print buildbot user's ~/.ssh/id_rsa.pub to be configured Bitbucket etc.
+
 Role Variables
 --------------
 
