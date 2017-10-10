@@ -1,2 +1,32 @@
 ---
 - command: buildbot create-master ~/master
+
+- get_url:
+    url: http://chromedriver.storage.googleapis.com/2.33/chromedriver_linux64.zip
+    dest: /tmp/chromedriver_linux64.zip
+
+- apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - unzip
+
+- unarchive:
+    src: /tmp/chromedriver_linux64.zip
+    dest: /usr/local/bin
+    remote_src: yes
+
+- get_url:
+    url: https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+    dest: /tmp/google-chrome-stable_current_amd64.deb
+
+- apt:
+    deb: /tmp/google-chrome-stable_current_amd64.deb
+
+- name: here
+  shell: |
+    /opt/google/chrome/chrome --version
+  register: chrome
+  
+- debug:
+    msg: "{{ chrome.stdout }} has been installed"

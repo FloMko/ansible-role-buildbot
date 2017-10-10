@@ -1,7 +1,10 @@
 Role Name
 =========
 
-Installs Buildbot
+`pip install`s buildbot bundle and more:
+
+- Google Chrome and
+- latest chromedriver
 
 TODO create systemd files for Buildbot
 
