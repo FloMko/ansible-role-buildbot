@@ -23,8 +23,9 @@
 - user: name=buildbot group=buildbot shell=/bin/bash generate_ssh_key=yes
 
 - command: buildbot create-master ~/master
-  sudo: yes
-  sudo_user: buildbot
+  become: true
+  become_method: su
+  become_user: buildbot
 
 - name: start buildbot
   copy:
